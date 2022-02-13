@@ -1,0 +1,129 @@
+/To create a table/
+CREATE TABLE pastries (
+name INT,
+quantity VARCHAR(50));
+SHOW COLUMNS FROM pastries; 
+
+/to create a table that does not allowed NULL to be value when data inserted is missing but instead to set it to a default value if not added/ 
+mysql> CREATE TABLE cats3
+    -> (name VARCHAR(20) DEFAULT 'no name provided',
+    -> age INT DEFAULT 99)
+    -> ;
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> DESC cats3
+    -> ;
++-------+-------------+------+-----+------------------+-------+
+| Field | Type        | Null | Key | Default          | Extra |
++-------+-------------+------+-----+------------------+-------+
+| name  | varchar(20) | YES  |     | no name provided |       |
+| age   | int(11)     | YES  |     | 99               |       |
++-------+-------------+------+-----+------------------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+/testing the default code/ 
+
+mysql> INSERT INTO cats3(age) VALUES(13);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM cats3;
++------------------+------+
+| name             | age  |
++------------------+------+
+| no name provided |   13 |
++------------------+------+
+1 row in set (0.00 sec)
+
+mysql>
+/creating a primary key so values can be uniquely identified/ 
+mysql> CREATE TABLE unique_cats(cat_id INT NOT NULL, name VARCHAR(100), age INT, PRIMARY KEY(cat_id));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> DESC unique_cats
+    -> ;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| cat_id | int(11)      | NO   | PRI | NULL    |       |
+| name   | varchar(100) | YES  |     | NULL    |       |
+| age    | int(11)      | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+/inserting data/
+
+mysql> INSERT INTO unique_cats(cat_id, name, age) VALUES(1, "Fred", 23);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM unique_cats;
++--------+------+------+
+| cat_id | name | age  |
++--------+------+------+
+|      1 | Fred |   23 |
++--------+------+------+
+1 row in set (0.00 sec)
+
+/testing that the primary key works/ 
+
+mysql> INSERT INTO unique_cats(cat_id, name, age) VALUES(1, "Louise", 42);
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+mysql> INSERT INTO unique_cats(cat_id, name, age) VALUES(2, "Louise", 42);
+Query OK, 1 row affected (0.01 sec)
+
+/fixing the error/ 
+
+mysql> SELECT * FROM unique_cats;
++--------+--------+------+
+| cat_id | name   | age  |
++--------+--------+------+
+|      1 | Fred   |   23 |
+|      2 | Louise |   42 |
++--------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+/adding in auto increment for a primary key/ 
+
+mysql> CREATE TABLE unique_cats2 (cat_id INT NOT NULL AUTO_INCREMENT, name VARCHAR(100), age INT, PRIMARY KEY(cat_id));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> DESC unique_cats2
+    -> ;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| cat_id | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(100) | YES  |     | NULL    |                |
+| age    | int(11)      | YES  |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO unique_cats2 (name, age) VALUES('Carl', 32);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> SELECT * FROM unique_cats2;
++--------+------+------+
+| cat_id | name | age  |
++--------+------+------+
+|      1 | Carl |   32 |
++--------+------+------+
+1 row in set (0.00 sec)
+
+/testing that the auto increment works/ 
+
+mysql> INSERT INTO unique_cats2(name, age) VALUES('Jiff', 3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM unique_cats2;
++--------+------+------+
+| cat_id | name | age  |
++--------+------+------+
+|      1 | Carl |   32 |
+|      2 | Jiff |    3 |
++--------+------+------+
+2 rows in set (0.00 sec)
+
+mysql>
