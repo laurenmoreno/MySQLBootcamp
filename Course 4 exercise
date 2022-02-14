@@ -1,0 +1,60 @@
+mysql> CREATE TABLE Employees(id INT NOT NULL AUTO_INCREMENT, last_name VARCHAR(100) NOT NULL, first_name VARCHAR(100) NOT NULL, middle_name VARCHAR(100) NOT NULL, age INT, current_status VARCHAR(100) DEFAULT 'emplo
+yed' NOT NULL, PRIMARY KEY (id));
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> DESC Employees;
++----------------+--------------+------+-----+----------+----------------+
+| Field          | Type         | Null | Key | Default  | Extra          |
++----------------+--------------+------+-----+----------+----------------+
+| id             | int(11)      | NO   | PRI | NULL     | auto_increment |
+| last_name      | varchar(100) | NO   |     | NULL     |                |
+| first_name     | varchar(100) | NO   |     | NULL     |                |
+| middle_name    | varchar(100) | NO   |     | NULL     |                |
+| age            | int(11)      | YES  |     | NULL     |                |
+| current_status | varchar(100) | NO   |     | employed |                |
++----------------+--------------+------+-----+----------+----------------+
+6 rows in set (0.01 sec)
+
+mysql> INSERT INTO Employees(last_name, first_name, middle_name, age, current_status) VALUES ('Grant', 'Mike', 27);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO Employees(last_name, first_name, middle_name, age) VALUES ('Grant', 'Mike', 'Jer', 27);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM Employees;
++----+-----------+------------+-------------+------+----------------+
+| id | last_name | first_name | middle_name | age  | current_status |
++----+-----------+------------+-------------+------+----------------+
+|  1 | Grant     | Mike       | Jer         |   27 | employed       |
++----+-----------+------------+-------------+------+----------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO Employees(last_name, first_name, middle_name, age, current_status) VALUES ('Arg', 'Pirate', 'Sword', 455, 'Fired');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT * FROM Employees;
++----+-----------+------------+-------------+------+----------------+
+| id | last_name | first_name | middle_name | age  | current_status |
++----+-----------+------------+-------------+------+----------------+
+|  1 | Grant     | Mike       | Jer         |   27 | employed       |
+|  2 | Arg       | Pirate     | Sword       |  455 | Fired          |
++----+-----------+------------+-------------+------+----------------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+mysql> INSERT INTO Employees(first_name, last_name, age)
+    ->
+    -> VALUES ('Health', 'Ade', 23);
+Query OK, 1 row affected, 1 warning (0.02 sec)
+
+mysql> SELECT * FROM Employees;
++----+-----------+------------+-------------+------+----------------+
+| id | last_name | first_name | middle_name | age  | current_status |
++----+-----------+------------+-------------+------+----------------+
+|  1 | Grant     | Mike       | Jer         |   27 | employed       |
+|  2 | Arg       | Pirate     | Sword       |  455 | Fired          |
+|  3 | Ade       | Health     |             |   23 | employed       |
++----+-----------+------------+-------------+------+----------------+
+3 rows in set (0.00 sec)
+
+mysql>
