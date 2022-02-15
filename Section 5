@@ -1,0 +1,242 @@
+            \* exercises using the SELECT FROM WHERE clauses *\ 
+
+mysql> CREATE TABLE cats
+    ->
+    -> (cat_id INT NOT NULL AUTO_INCREMENT,
+    ->
+    ->  name VARCHAR(100),
+    ->
+    -> breed VARCHAR(100),
+    ->
+    -> age INT,
+    ->
+    -> PRIMARY KEY (cat_id));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> DESC cats;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| cat_id | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(100) | YES  |     | NULL    |                |
+| breed  | varchar(100) | YES  |     | NULL    |                |
+| age    | int(11)      | YES  |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO cats(name, breed, age)
+    ->
+    -> VALUES ('Ringo', 'Tabby', 4),
+    ->
+    ->        ('Cindy', 'Maine Coon', 10),
+    ->
+    ->        ('Dumbledore', 'Maine Coon', 11),
+    ->
+    ->        ('Egg', 'Persian', 4),
+    ->
+    ->        ('Misty', 'Tabby', 13),
+    ->
+    ->        ('George Michael', 'Ragdoll', 9),
+    ->
+    ->        ('Jackson', 'Sphynx', 7);
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      1 | Ringo          | Tabby      |    4 |
+|      2 | Cindy          | Maine Coon |   10 |
+|      3 | Dumbledore     | Maine Coon |   11 |
+|      4 | Egg            | Persian    |    4 |
+|      5 | Misty          | Tabby      |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      7 | Jackson        | Sphynx     |    7 |
++--------+----------------+------------+------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT cat_id FROM cats;
++--------+
+| cat_id |
++--------+
+|      1 |
+|      2 |
+|      3 |
+|      4 |
+|      5 |
+|      6 |
+|      7 |
++--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT name, breed FROM cats;
++----------------+------------+
+| name           | breed      |
++----------------+------------+
+| Ringo          | Tabby      |
+| Cindy          | Maine Coon |
+| Dumbledore     | Maine Coon |
+| Egg            | Persian    |
+| Misty          | Tabby      |
+| George Michael | Ragdoll    |
+| Jackson        | Sphynx     |
++----------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT name, age FROM cats WHERE breed='Tabby';
++-------+------+
+| name  | age  |
++-------+------+
+| Ringo |    4 |
+| Misty |   13 |
++-------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM cats
+    -> WHERE cat_id=age;
++--------+---------+---------+------+
+| cat_id | name    | breed   | age  |
++--------+---------+---------+------+
+|      4 | Egg     | Persian |    4 |
+|      7 | Jackson | Sphynx  |    7 |
++--------+---------+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT cat_id, age
+    -> FROM cats
+    -> WHERE cat_id=age;
++--------+------+
+| cat_id | age  |
++--------+------+
+|      4 |    4 |
+|      7 |    7 |
++--------+------+
+2 rows in set (0.00 sec)
+
+
+          \* updating data in a table *\ 
+
+
+mysql> SELECT * FROM cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      1 | Ringo          | Tabby      |    4 |
+|      2 | Cindy          | Maine Coon |   10 |
+|      3 | Dumbledore     | Maine Coon |   11 |
+|      4 | Egg            | Persian    |    4 |
+|      5 | Misty          | Tabby      |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      7 | Jackson        | Sphynx     |    7 |
++--------+----------------+------------+------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE cat
+    -> SET breed='short hair'
+    -> WHERE breed='Tabby';
+ERROR 1146 (42S02): Table 'cats.cat' doesn't exist
+mysql> UPDATE cats SET breed='short hair'  WHERE breed='Tabby';
+Query OK, 2 rows affected (0.07 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM CATS;
+ERROR 1146 (42S02): Table 'cats.CATS' doesn't exist
+mysql> SELECT * FROM cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      1 | Ringo          | short hair |    4 |
+|      2 | Cindy          | Maine Coon |   10 |
+|      3 | Dumbledore     | Maine Coon |   11 |
+|      4 | Egg            | Persian    |    4 |
+|      5 | Misty          | short hair |   13 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      7 | Jackson        | Sphynx     |    7 |
++--------+----------------+------------+------+
+7 rows in set (0.00 sec)
+
+mysql>
+
+mysql> UPDATE cats
+    -> SET age=14
+    -> WHERE name='Misty';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      1 | Ringo          | short hair |    4 |
+|      2 | Cindy          | Maine Coon |   10 |
+|      3 | Dumbledore     | Maine Coon |   11 |
+|      4 | Egg            | Persian    |    4 |
+|      5 | Misty          | short hair |   14 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      7 | Jackson        | Sphynx     |    7 |
++--------+----------------+------------+------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE cats
+    -> SET name='Jack'
+    -> WHERE name='Jackson';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM cats;
++--------+----------------+------------+------+
+| cat_id | name           | breed      | age  |
++--------+----------------+------------+------+
+|      1 | Ringo          | short hair |    4 |
+|      2 | Cindy          | Maine Coon |   10 |
+|      3 | Dumbledore     | Maine Coon |   11 |
+|      4 | Egg            | Persian    |    4 |
+|      5 | Misty          | short hair |   14 |
+|      6 | George Michael | Ragdoll    |    9 |
+|      7 | Jack           | Sphynx     |    7 |
++--------+----------------+------------+------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE cats
+    -> SET breed='British Shorthair'
+    -> WHERE name='Ringo';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM cats;
++--------+----------------+-------------------+------+
+| cat_id | name           | breed             | age  |
++--------+----------------+-------------------+------+
+|      1 | Ringo          | British Shorthair |    4 |
+|      2 | Cindy          | Maine Coon        |   10 |
+|      3 | Dumbledore     | Maine Coon        |   11 |
+|      4 | Egg            | Persian           |    4 |
+|      5 | Misty          | short hair        |   14 |
+|      6 | George Michael | Ragdoll           |    9 |
+|      7 | Jack           | Sphynx            |    7 |
++--------+----------------+-------------------+------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE cats
+    -> SET age=12
+    -> WHERE breed='Maine Coon';
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM cats;
++--------+----------------+-------------------+------+
+| cat_id | name           | breed             | age  |
++--------+----------------+-------------------+------+
+|      1 | Ringo          | British Shorthair |    4 |
+|      2 | Cindy          | Maine Coon        |   12 |
+|      3 | Dumbledore     | Maine Coon        |   12 |
+|      4 | Egg            | Persian           |    4 |
+|      5 | Misty          | short hair        |   14 |
+|      6 | George Michael | Ragdoll           |    9 |
+|      7 | Jack           | Sphynx            |    7 |
++--------+----------------+-------------------+------+
+7 rows in set (0.00 sec)
+
+mysql>
