@@ -1,0 +1,159 @@
+mysql> SELECT UPPER (REVERSE('Why does my cat'));
++------------------------------------+
+| UPPER (REVERSE('Why does my cat')) |
++------------------------------------+
+| TAC YM SEOD YHW                    |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+mysql> SELECT  REPLACE(title, ' ' , ' - ') AS title FROM books; 
++-----------------------------------------------------------------------+
+| title                                            |
++-----------------------------------------------------------------------+
+| The - Namesake                                                        |
+| Norse - Mythology                                                     |
+| American - Gods                                                       |
+| Interpreter - of - Maladies                                           |
+| A - Hologram - for - the - King: - A - Novel                          |
+| The - Circle                                                          |
+| The - Amazing - Adventures - of - Kavalier - & - Clay                 |
+| Where - I'm - Calling - From: - Selected - Stories                    |
+| White - Noise                                                         |
+| Cannery - Row                                                         |
+| Oblivion: - Stories                                                   |
+| Consider - the - Lobster                                              |
+| The - Namesake                                                        |
+| Norse - Mythology                                                     |
+| American - Gods                                                       |
+| Interpreter - of - Maladies                                           |
+| A - Hologram - for - the - King: - A - Novel                          |
+| The - Circle                                                          |
+| The - Amazing - Adventures - of - Kavalier - & - Clay                 |
+| Just - Kids                                                           |
+| A - Heartbreaking - Work - of - Staggering - Genius                   |
+| Coraline                                                              |
+| What - We - Talk - About - When - We - Talk - About - Love: - Stories |
+| Where - I'm - Calling - From: - Selected - Stories                    |
+| White - Noise                                                         |
+| Cannery - Row                                                         |
+| Oblivion: - Stories                                                   |
+| Consider - the - Lobster                                              |
++-----------------------------------------------------------------------+
+112 rows in set (0.14 sec)
+
+ SELECT   author_fname AS 'forwards', REVERSE(author_lname) AS 'backwards'   FROM books;
++----------+----------------+
+| forwards | backwards      |
++----------+----------------+
+| Jhumpa   | irihaL         |
+| Neil     | namiaG         |
+| Neil     | namiaG         |
+| Jhumpa   | irihaL         |
+| Dave     | sreggE         |
+| Dave     | sreggE         |
+| David    | ecallaW retsoF |
+| David    | ecallaW retsoF |
+| Jhumpa   | irihaL         |
+| Neil     | namiaG         |
+| Neil     | namiaG         |
+| Jhumpa   | irihaL         |
+| Dave     | sreggE         |
+| Dave     | sreggE         |
+| Michael  | nobahC         |
+| Patti    | htimS          |
+| Dave     | sreggE         |
+| Neil     | namiaG         |
+| Raymond  | revraC         |
+| Raymond  | revraC         |
+| Don      | olliLeD        |
+| John     | kcebnietS      |
+| David    | ecallaW retsoF |
+| David    | ecallaW retsoF |
++----------+----------------+
+112 rows in set (0.00 sec)
+
+ SELECT UPPER (CONCAT(author_fname , '_', author_lname)) AS 'full name in caps'
+    -> FROM books;
++----------------------+
+| full name in caps    |
++----------------------+
+| JHUMPA_LAHIRI        |
+| NEIL_GAIMAN          |
+| NEIL_GAIMAN          |
+| JHUMPA_LAHIRI        |
+| DAVE_EGGERS          |
+| DAVE_EGGERS          |
+| MICHAEL_CHABON       |
+| PATTI_SMITH          |
+| DAVE_EGGERS          |
+| NEIL_GAIMAN          |
+| RAYMOND_CARVER       |
+| RAYMOND_CARVER       |
+| DON_DELILLO          |
+| JOHN_STEINBECK       |
+| DAVID_FOSTER WALLACE |
+| DAVID_FOSTER WALLACE |
+| JHUMPA_LAHIRI        |
+| NEIL_GAIMAN          |
+| NEIL_GAIMAN          |
+| JHUMPA_LAHIRI        |
+| DAVE_EGGERS          |
+| DAVE_EGGERS          |
+| MICHAEL_CHABON       |
+| NEIL_GAIMAN          |
+| RAYMOND_CARVER       |
+| RAYMOND_CARVER       |
+| DON_DELILLO          |
+| JOHN_STEINBECK       |
+| DAVID_FOSTER WALLACE |
+| DAVID_FOSTER WALLACE |
++----------------------+
+112 rows in set (0.00 sec)
+
+SELECT
+CONCAT(title, 'was released in ', released_year) AS 'blurb'
+FROM books
+
+mysql> source test.sql
++-------------------------------------------------------------------------+
+| blurb                                                                   |
++-------------------------------------------------------------------------+
+| The Namesakewas released in 2003                                        |
+| Norse Mythologywas released in 2016                                     |
+| American Godswas released in 2001                                       |
+| Interpreter of Maladieswas released in 1996                             |
+| A Hologram for the King: A Novelwas released in 2012                    |
+| The Circlewas released in 2013                                          |
+| The Amazing Adventures of Kavalier & Claywas released in 2000           |
+| Just Kidswas released in 2010                                           |
+| A Heartbreaking Work of Staggering Geniuswas released in 2001           |
+| Coralinewas released in 2003                                            |
+| What We Talk About When We Talk About Love: Storieswas released in 1981 |
+| Where I'm Calling From: Selected Storieswas released in 1989            |
+| White Noisewas released in 1985                                         |
+| Cannery Rowwas released in 1945                                         |
+| Oblivion: Storieswas released in 2004                                   |
+| Consider the Lobsterwas released in 2005                                |
+| The Namesakewas released in 2003                                        |
+| Norse Mythologywas released in 2016                                     |
+| American Godswas released in 2001                                       |
+| Interpreter of Maladieswas released in 1996                             |
+| A Hologram for the King: A Novelwas released in 2012                    |
+| The Circlewas released in 2013                                          |
+| The Amazing Adventures of Kavalier & Claywas released in 2000           |
+| Just Kidswas released in 2010                                           |
+| A Heartbreaking Work of Staggering Geniuswas released in 2001           |
+| Coralinewas released in 2003                                            |
+| What We Talk About When We Talk About Love: Storieswas released in 1981 |
+| Where I'm Calling From: Selected Storieswas released in 1989            |
+| White Noisewas released in 1985                                         |
+| Cannery Rowwas released in 1945                                         |
+| Oblivion: Storieswas released in 2004                                   |
+| Consider the Lobsterwas released in 2005                                |
++-------------------------------------------------------------------------+
+112 rows in set (0.00 sec)
+
+/* did not add the space prior to 'was' which led to result*/
+
