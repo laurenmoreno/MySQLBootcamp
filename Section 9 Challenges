@@ -1,0 +1,142 @@
+/* print the number of books in the database */ 
+
+mysql> SELECT count(*) AS 'total books' FROM books;
++-------------+
+| total books |
++-------------+
+|         118 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+/* print out how many books were released in each year*/ 
+
+mysql> SELECT released_year AS 'year', count(*) AS 'total books for year' FROM books GROUP BY released_year;
++------+----------------------+
+| year | total books for year |
++------+----------------------+
+| 1945 |                    7 |
+| 1981 |                    7 |
+| 1985 |                    7 |
+| 1989 |                    7 |
+| 1996 |                    7 |
+| 2000 |                    7 |
+| 2001 |                   16 |
+| 2003 |                   14 |
+| 2004 |                    7 |
+| 2005 |                    7 |
+| 2010 |                    7 |
+| 2012 |                    7 |
+| 2013 |                    7 |
+| 2014 |                    2 |
+| 2016 |                    7 |
+| 2017 |                    2 |
++------+----------------------+
+16 rows in set (0.00 sec)
+
+mysql>
+
+/* print out the total # of books in stock*/ 
+
+mysql> SELECT sum(stock_quantity) AS 'total books' FROM books;
++-------------+
+| total books |
++-------------+
+|       10570 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql>
+
+/*find the average released year for each author*/
+
+mysql> SELECT CONCAT(author_fname, ' ', author_lname) AS 'author', AVG(released_year) AS 'average released yr'
+    -> FROM books
+    -> GROUP BY author_fname, author_lname
+    -> ;
++----------------------+---------------------+
+| author               | average released yr |
++----------------------+---------------------+
+| Dan Harris           |           2014.0000 |
+| Dave Eggers          |           2008.6667 |
+| David Foster Wallace |           2004.5000 |
+| Don DeLillo          |           1985.0000 |
+| Freida Harris        |           2001.0000 |
+| George Saunders      |           2017.0000 |
+| Jhumpa Lahiri        |           1999.5000 |
+| John Steinbeck       |           1945.0000 |
+| Michael Chabon       |           2000.0000 |
+| Neil Gaiman          |           2006.6667 |
+| Patti Smith          |           2010.0000 |
+| Raymond Carver       |           1985.0000 |
++----------------------+---------------------+
+12 rows in set (0.09 sec)
+
+mysql>
+
+
+/*find the full name of the author who wrote the longest book*/
+/*Option 1*/
+
+mysql> SELECT CONCAT(author_fname, ' ', author_lname) AS 'author'  FROM books WHERE pages = (SELECT Max(pages) FROM books) LIMIT 1;
++----------------+
+| author         |
++----------------+
+| Michael Chabon |
++----------------+
+1 row in set (0.01 sec)
+
+mysql>
+
+/* option 2*/
+
+mysql> SELECT CONCAT(author_fname, ' ', author_lname) AS 'author'  FROM books ORDER BY pages DESC LIMIT 1;
++----------------+
+| author         |
++----------------+
+| Michael Chabon |
++----------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+mysql> SELECT CONCAT(author_fname, ' ', author_lname) AS 'author', MAX(pages) AS 'pages'
+    -> FROM books ORDER BY(pages) ASC LIMIT 1;
++---------------+-------+
+| author        | pages |
++---------------+-------+
+| Jhumpa Lahiri |   634 |
++---------------+-------+
+1 row in set (0.00 sec)
+
+mysql>
+
+/*create a table that has the released year, the # of books released that year, average number of pages then rename the columns to be readable*/
+
+mysql> SELECT released_year AS 'year', COUNT(*) AS 'number of books', AVG(pages) AS 'avg pages'
+    -> FROM books
+    -> GROUP BY released_year;
++------+-----------------+-----------+
+| year | number of books | avg pages |
++------+-----------------+-----------+
+| 1945 |               7 |  181.0000 |
+| 1981 |               7 |  176.0000 |
+| 1985 |               7 |  320.0000 |
+| 1989 |               7 |  526.0000 |
+| 1996 |               7 |  198.0000 |
+| 2000 |               7 |  634.0000 |
+| 2001 |              16 |  448.1250 |
+| 2003 |              14 |  249.5000 |
+| 2004 |               7 |  329.0000 |
+| 2005 |               7 |  343.0000 |
+| 2010 |               7 |  304.0000 |
+| 2012 |               7 |  352.0000 |
+| 2013 |               7 |  504.0000 |
+| 2014 |               2 |  256.0000 |
+| 2016 |               7 |  304.0000 |
+| 2017 |               2 |  367.0000 |
++------+-----------------+-----------+
+16 rows in set (0.00 sec)
+
+mysql>
