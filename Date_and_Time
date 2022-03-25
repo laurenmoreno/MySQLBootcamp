@@ -1,0 +1,35 @@
+mysql> SELECT CURTIME();
++-----------+
+| CURTIME() |
++-----------+
+| 20:54:06  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURDATE();
++------------+
+| CURDATE()  |
++------------+
+| 2022-03-25 |
++------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+mysql> SELECT DATE_FORMAT(NOW(), '%w') + 1;
++------------------------------+
+| DATE_FORMAT(NOW(), '%w') + 1 |
++------------------------------+
+|                            6 |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql>mysql> SELECT DAYNAME(NOW());
++----------------+
+| DAYNAME(NOW()) |
++----------------+
+| Friday         |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT(NOW(), '%W');
