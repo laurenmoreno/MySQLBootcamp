@@ -310,4 +310,28 @@ mysql>  SELECT author_lname, COUNT(DISTINCT title),
 +----------------+-----------------------+---------+
 11 rows in set (0.04 sec)
 
-mysql>
+
+mysql>  SELECT author_lname,
+    ->  CASE
+    -> WHEN COUNT(DISTINCT title) = 1 THEN '1 book'
+    -> ELSE CONCAT(COUNT(DISTINCT title),' books')
+    -> END AS COUNT
+    -> FROM books
+    -> GROUP BY author_lname;
++----------------+---------+
+| author_lname   | COUNT   |
++----------------+---------+
+| Carver         | 2 books |
+| Chabon         | 1 book  |
+| DeLillo        | 1 book  |
+| Eggers         | 3 books |
+| Foster Wallace | 2 books |
+| Gaiman         | 3 books |
+| Harris         | 2 books |
+| Lahiri         | 2 books |
+| Saunders       | 1 book  |
+| Smith          | 1 book  |
+| Steinbeck      | 1 book  |
++----------------+---------+
+11 rows in set (0.00 sec)
+
