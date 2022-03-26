@@ -1,0 +1,313 @@
+/* select all titles written before 1980 (non inclusive) */
+mysql> SELECT title, released_year
+    -> FROM books
+    -> WHERE released_year < 1980;
++-------------+---------------+
+| title       | released_year |
++-------------+---------------+
+| Cannery Row |          1945 |
+| Cannery Row |          1945 |
+| Cannery Row |          1945 |
+| Cannery Row |          1945 |
+| Cannery Row |          1945 |
+| Cannery Row |          1945 |
+| Cannery Row |          1945 |
++-------------+---------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT title, released_year
+    -> FROM books
+    -> WHERE released_year < 1980;
++-------------+---------------+
+| title       | released_year |
++-------------+---------------+
+| Cannery Row |          1945 |
++-------------+---------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+/* select all books written by Eggers or Chabon*/
+
+mysql> SELECT title, CONCAT(author_fname,' ', author_lname) AS 'Author' FROM books
+    -> WHERE author_lname = 'Eggers' OR 'Chabon';
++-------------------------------------------+-------------+
+| title                                     | Author      |
++-------------------------------------------+-------------+
+| A Hologram for the King: A Novel          | Dave Eggers |
+| The Circle                                | Dave Eggers |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers |
+| A Hologram for the King: A Novel          | Dave Eggers |
+| The Circle                                | Dave Eggers |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers |
+| A Hologram for the King: A Novel          | Dave Eggers |
+| The Circle                                | Dave Eggers |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers |
+| A Hologram for the King: A Novel          | Dave Eggers |
+| The Circle                                | Dave Eggers |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers |
+| A Hologram for the King: A Novel          | Dave Eggers |
+| The Circle                                | Dave Eggers |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers |
+| A Hologram for the King: A Novel          | Dave Eggers |
+| The Circle                                | Dave Eggers |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers |
+| A Hologram for the King: A Novel          | Dave Eggers |
+| The Circle                                | Dave Eggers |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers |
++-------------------------------------------+-------------+
+21 rows in set, 1 warning (0.00 sec)
+
+mysql> SELECT title, CONCAT(author_fname,' ', author_lname) AS 'Author' FROM books
+    -> WHERE author_lname = 'Eggers' OR author_lname = 'Chabon';
++-------------------------------------------+----------------+
+| title                                     | Author         |
++-------------------------------------------+----------------+
+| A Hologram for the King: A Novel          | Dave Eggers    |
+| The Circle                                | Dave Eggers    |
+| The Amazing Adventures of Kavalier & Clay | Michael Chabon |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers    |
+| A Hologram for the King: A Novel          | Dave Eggers    |
+| The Circle                                | Dave Eggers    |
+| The Amazing Adventures of Kavalier & Clay | Michael Chabon |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers    |
+| A Hologram for the King: A Novel          | Dave Eggers    |
+| The Circle                                | Dave Eggers    |
+| The Amazing Adventures of Kavalier & Clay | Michael Chabon |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers    |
+| A Hologram for the King: A Novel          | Dave Eggers    |
+| The Circle                                | Dave Eggers    |
+| The Amazing Adventures of Kavalier & Clay | Michael Chabon |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers    |
+| A Hologram for the King: A Novel          | Dave Eggers    |
+| The Circle                                | Dave Eggers    |
+| The Amazing Adventures of Kavalier & Clay | Michael Chabon |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers    |
+| A Hologram for the King: A Novel          | Dave Eggers    |
+| The Circle                                | Dave Eggers    |
+| The Circle                                | Dave Eggers    |
+| The Amazing Adventures of Kavalier & Clay | Michael Chabon |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers    |
+| A Hologram for the King: A Novel          | Dave Eggers    |
+| The Circle                                | Dave Eggers    |
+| The Amazing Adventures of Kavalier & Clay | Michael Chabon |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers    |
++-------------------------------------------+----------------+
+28 rows in set (0.00 sec)
+
+mysql>
+
+mysql> SELECT DISTINCT title, CONCAT(author_fname,' ', author_lname) AS 'Author' FROM books
+    -> WHERE author_lname = 'Eggers' OR author_lname = 'Chabon';
++-------------------------------------------+----------------+
+| title                                     | Author         |
++-------------------------------------------+----------------+
+| A Hologram for the King: A Novel          | Dave Eggers    |
+| The Circle                                | Dave Eggers    |
+| The Amazing Adventures of Kavalier & Clay | Michael Chabon |
+| A Heartbreaking Work of Staggering Genius | Dave Eggers    |
++-------------------------------------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql>
+
+/* select all books written by Lahiri, published after 2000*/
+
+mysql> SELECT DISTINCT title, CONCAT(author_fname,' ', author_lname) AS 'Author' FROM books
+    -> WHERE author_lname = 'Lahiri' AND released_year > 2000;
++--------------+---------------+
+| title        | Author        |
++--------------+---------------+
+| The Namesake | Jhumpa Lahiri |
++--------------+---------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+/* Select all books where the page count is between 100 & 200 */
+mysql> SELECT DISTINCT title, pages FROM books
+    -> WHERE pages BETWEEN 100 AND 200;
++-----------------------------------------------------+-------+
+| title                                               | pages |
++-----------------------------------------------------+-------+
+| Interpreter of Maladies                             |   198 |
+| What We Talk About When We Talk About Love: Stories |   176 |
+| Cannery Row                                         |   181 |
++-----------------------------------------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
+
+/* select all books where author_lname starts with a 'C' or 'S' */ 
+
+mysql> SELECT DISTINCT SUBSTRING(author_lname,1, 1) FROM books;
++------------------------------+
+| SUBSTRING(author_lname,1, 1) |
++------------------------------+
+| L                            |
+| G                            |
+| E                            |
+| C                            |
+| S                            |
+| D                            |
+| F                            |
+| H                            |
++------------------------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT title, author_lname, SUBSTRING(author_lname,1, 1) FROM books
+    -> WHERE SUBSTRING(author_lname,1,1) = 'C' OR SUBSTRING(author_lname,1,1) = 'S';
++-----------------------------------------------------+--------------+------------------------------+
+| title                                               | author_lname | SUBSTRING(author_lname,1, 1) |
++-----------------------------------------------------+--------------+------------------------------+
+| The Amazing Adventures of Kavalier & Clay           | Chabon       | C                            |
+| Just Kids                                           | Smith        | S                            |
+| What We Talk About When We Talk About Love: Stories | Carver       | C                            |
+| Where I'm Calling From: Selected Stories            | Carver       | C                            |
+| Cannery Row                                         | Steinbeck    | S                            |
+| Lincoln In The Bardo                                | Saunders     | S                            |
++-----------------------------------------------------+--------------+------------------------------+
+6 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT DISTINCT title, author_lname FROM books
+    -> WHERE SUBSTRING(author_lname,1,1) = 'C' OR SUBSTRING(author_lname,1,1) = 'S';
++-----------------------------------------------------+--------------+
+| title                                               | author_lname |
++-----------------------------------------------------+--------------+
+| The Amazing Adventures of Kavalier & Clay           | Chabon       |
+| Just Kids                                           | Smith        |
+| What We Talk About When We Talk About Love: Stories | Carver       |
+| Where I'm Calling From: Selected Stories            | Carver       |
+| Cannery Row                                         | Steinbeck    |
+| Lincoln In The Bardo                                | Saunders     |
++-----------------------------------------------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+mysql> SELECT DISTINCT title, author_lname FROM books
+    -> WHERE substring(author_lname,1,1) IN ('C','S');
++-----------------------------------------------------+--------------+
+| title                                               | author_lname |
++-----------------------------------------------------+--------------+
+| The Amazing Adventures of Kavalier & Clay           | Chabon       |
+| Just Kids                                           | Smith        |
+| What We Talk About When We Talk About Love: Stories | Carver       |
+| Where I'm Calling From: Selected Stories            | Carver       |
+| Cannery Row                                         | Steinbeck    |
+| Lincoln In The Bardo                                | Saunders     |
++-----------------------------------------------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+/* If the title contains 'stories' then call it 'Short Stories' and if the title is 'Just Kids' or 'A Heartbreaking Work of Staggering Genius' then call it 'Memoir"
+everything else will be called 'Novel' */
+
+
+mysql> SELECT DISTINCT title, author_lname,
+    -> CASE
+    -> WHEN title LIKE '%stories%' THEN 'Short Stories'
+    -> WHEN title LIKE 'Just Kids' OR 'A Heartbreaking Work of Staggering Genius' THEN 'Memoir'
+    -> ELSE 'Novel'
+    -> END AS type
+    -> FROM books;
++-----------------------------------------------------+----------------+---------------+
+| title                                               | author_lname   | type          |
++-----------------------------------------------------+----------------+---------------+
+| The Namesake                                        | Lahiri         | Novel         |
+| Norse Mythology                                     | Gaiman         | Novel         |
+| American Gods                                       | Gaiman         | Novel         |
+| Interpreter of Maladies                             | Lahiri         | Novel         |
+| A Hologram for the King: A Novel                    | Eggers         | Novel         |
+| The Circle                                          | Eggers         | Novel         |
+| The Amazing Adventures of Kavalier & Clay           | Chabon         | Novel         |
+| Just Kids                                           | Smith          | Memoir        |
+| A Heartbreaking Work of Staggering Genius           | Eggers         | Novel         |
+| Coraline                                            | Gaiman         | Novel         |
+| What We Talk About When We Talk About Love: Stories | Carver         | Short Stories |
+| Where I'm Calling From: Selected Stories            | Carver         | Short Stories |
+| White Noise                                         | DeLillo        | Novel         |
+| Cannery Row                                         | Steinbeck      | Novel         |
+| Oblivion: Stories                                   | Foster Wallace | Short Stories |
+| Consider the Lobster                                | Foster Wallace | Novel         |
+| 10% Happier                                         | Harris         | Novel         |
+| fake_book                                           | Harris         | Novel         |
+| Lincoln In The Bardo                                | Saunders       | Novel         |
++-----------------------------------------------------+----------------+---------------+
+19 rows in set, 90 warnings (0.02 sec)
+
+mysql>
+
+mysql> SELECT author_lname, COUNT(DISTINCT title)
+    -> FROM books
+    -> GROUP BY author_lname;
++----------------+-----------------------+
+| author_lname   | COUNT(DISTINCT title) |
++----------------+-----------------------+
+| Carver         |                     2 |
+| Chabon         |                     1 |
+| DeLillo        |                     1 |
+| Eggers         |                     3 |
+| Foster Wallace |                     2 |
+| Gaiman         |                     3 |
+| Harris         |                     2 |
+| Lahiri         |                     2 |
+| Saunders       |                     1 |
+| Smith          |                     1 |
+| Steinbeck      |                     1 |
++----------------+-----------------------+
+11 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT author_lname, COUNT(DISTINCT title),
+    -> CASE
+    -> WHEN COUNT(DISTINCT title) = 1 THEN 'book'
+    -> END AS COUNT
+    -> FROM books
+    -> GROUP BY author_lname;
++----------------+-----------------------+-------+
+| author_lname   | COUNT(DISTINCT title) | COUNT |
++----------------+-----------------------+-------+
+| Carver         |                     2 | NULL  |
+| Chabon         |                     1 | book  |
+| DeLillo        |                     1 | book  |
+| Eggers         |                     3 | NULL  |
+| Foster Wallace |                     2 | NULL  |
+| Gaiman         |                     3 | NULL  |
+| Harris         |                     2 | NULL  |
+| Lahiri         |                     2 | NULL  |
+| Saunders       |                     1 | book  |
+| Smith          |                     1 | book  |
+| Steinbeck      |                     1 | book  |
++----------------+-----------------------+-------+
+11 rows in set (0.00 sec)
+
+
+W
+mysql>  SELECT author_lname, COUNT(DISTINCT title),
+    ->  CASE
+    -> WHEN COUNT(DISTINCT title) = 1 THEN '1 book'
+    -> ELSE CONCAT(COUNT(DISTINCT title),' books')
+    -> END AS COUNT
+    -> FROM books
+    -> GROUP BY author_lname;
++----------------+-----------------------+---------+
+| author_lname   | COUNT(DISTINCT title) | COUNT   |
++----------------+-----------------------+---------+
+| Carver         |                     2 | 2 books |
+| Chabon         |                     1 | 1 book  |
+| DeLillo        |                     1 | 1 book  |
+| Eggers         |                     3 | 3 books |
+| Foster Wallace |                     2 | 2 books |
+| Gaiman         |                     3 | 3 books |
+| Harris         |                     2 | 2 books |
+| Lahiri         |                     2 | 2 books |
+| Saunders       |                     1 | 1 book  |
+| Smith          |                     1 | 1 book  |
+| Steinbeck      |                     1 | 1 book  |
++----------------+-----------------------+---------+
+11 rows in set (0.04 sec)
+
+mysql>
